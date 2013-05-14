@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block title %}添加子节点{% endblock %}
+{% block body %}
+	{% if name%}
+		<div id=mainbar class=span9>
+			<section class=box>
+				<form action="/node/save" method=post class=new_topic>
+					{% csrf_token %}	
+					<legend>为 {{nodecate.name}} 新建节点</legend>
+					<div class=form-horizontal>
+						<div class=control-group>
+							<label class=control-label>子节点名称：</label>
+							<div class=controls>
+								<input id=topic_title type=text size=30 name=name>
+								<input type=hidden size=30 name=nodecate_id value={{nodecate.id}}>
+							</div>
+						</div>
+						<div class=form-actions>
+							<input class="btn btn-primary" type=submit value=增加子节点 name=commit>
+						</div>
+					</div>
+				</form>
+
+			</section>
+			<section class=box>
+        		  <table class=item-list>
+               			 <tbody>
+			 {% for node in nodes %}
+			 <span class="tags tabs">
+                              <a href="/">{{node.name}}</a>
+                         </span>
+			{% endfor %}
+
+			 </tbody>
+        		 </table>
+			</section>
+	
+		</div>
+	{% endif %}
+
+
+
+
+{% endblock %}

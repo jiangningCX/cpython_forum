@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block title %}
+	{% if 2 != 1 %}
+		第 1 页-最近的主题
+	{% else %}
+		首页
+	{% endif %}
+{% endblock %}
+{% block bread %}{% endblock %}
+第一页
+{% block sidebarin %}
+	{% if name %}
+		<section class=box>
+			<a class="btn btn-primary" href="/nodecate/add">增加节点</a>
+			<a class="btn btn-primary" href="/node/article">创建话题</a>
+		</section>
+	{% endif %}
+	{% if name %}
+		<section class=box>
+			<a class="btn btn-primary" href="/">推荐文章</a>
+			<a class="btn btn-primary" href="/upload/">头像上传</a>
+		</section>
+	{% endif %}
+	{% if nodecates %}
+		<section id=tabnodes class=box>
+			<header>包含节点</header>
+				{% for node in nodecates %}
+					<span class="tags enu">
+						<a href="/">{{node.name}}{{node.description}}</a>
+					</span>
+				{% endfor %}
+				</tbody>
+			</table>
+		</section>
+	{% endif %}
+	<section id=hots class=box>
+		<header>热议主题<span class="gray little list_big">within 24 hours<span></header>
+		<table class=item-list>
+			<tbody>
+			{% for article in articles %}
+			<a href="/say/{{article.id}}">{{article.title}}</a>
+			<hr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</section>
+	<section class=box>
+		<header>目标</header>
+		<img src="/static/{{image_urls.image}} ">
+		<p>编程公园,快乐编程</p>
+	</section>
+	<section class=box>
+		<header>全站统计</header>
+		<ul>
+			<li>用户数 1</li>
+			<li>话题数 {{count}}</li>
+			<li>回帖数 {{i}}</li>
+		</ul>
+	</section>
+{% endblock %}
+{% block body %}
+	<div id=mainbar class=span7>
+		{% include "_topiclist.html" %}
+		{% if 2 != 1 %}
+			<a href="/" >回到顶部</a>	
+		{% endif %}
+	</div>
+{% endblock %}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{% block title %}首页{% endblock %} - 编程公园</title>
+		<link rel=stylesheet type=text/css   href="/static/style/feather.css?v=2014">
+
+		<link rel="shortcut icon" href="/static/favicon.ico" />
+		{% block style %}{% endblock %}
+	</head>
+	<body>
+		<div id=topbar class=navbar style="box-shadow: 0 5px 10px rgba(0,0,0,0.6);">
+			<div class=navbar-inner>
+				<div class=container>
+					{% include "_logo.html" %}
+					{% if name %}
+					<div class=nav-collapse>
+						<ul class="nav nav-pills">
+							{% block usersactive %}
+							<li>
+							{% endblock %}
+								<a href="/users/">会员</a>
+							</li>
+							{% block bankactive %}
+							<li>
+							{% endblock %}
+							</li>
+							{% block aboutactive %}
+							<li>
+							{% endblock %}
+								<a href="/about/">关于</a>
+							</li>
+						</ul>
+						{% endif %}
+						<ul class="nav nav-pills pull-right">
+						{% if not name %}
+							<li>
+							{% block invite %}
+								<a href="/accounts/register">注册</a>
+							{% endblock %}
+							</li>
+							<li>
+								<a href="/accounts/login">登录</a>
+							</li>
+						{% else %}
+							{% if g.notify != 0 %}
+								<li class="notifications unread">
+							{% else %}
+								<li class=notifications>
+							{% endif %}
+									<a href="/message">
+										<span class=count>公告</span>
+									</a>
+								</li>
+								<li>
+									<a href="/member/{{name}}">个人中心</a>
+								</li>
+								<li>
+									<a href="/member/configs/{{name}}">设置</a>
+								</li>
+								<li>
+									<a href="/accounts/logout/?next=/" data-method=delete rel=nofollow>登出</a>
+								</li>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id=main>
+			<div class=container>
+				{% block bread %}
+				<div class=row>
+					<div class=span12>
+						<ul class=breadcrumb>
+							<li>
+								<a href="/">编程公园</a>
+								<span class=divider>/</span>
+							</li>
+							{% block breadcrumb %}<li class=active>首页</li>{% endblock %}
+						</ul>
+					</div>
+				</div>
+				{% endblock %}
+				{% block main %}
+				<div class=row>
+          {% block message %}
+						<p class="alert alert-block alert-success" style="margin-left: 30px;">消息</p>
+          {% endblock %}
+					{% block body %}{% endblock %}
+					{% block sidebar %}
+						<div id=sidebar class=span3>
+							{% block sidebarin1 %}
+							{% if name %}
+								<section class="profile box">
+									<div class=clearfix>
+										<div class=avatar>
+											<a href="/member/{{name}}">
+												{% for n in uploadimages %}
+												<img src="/static/{{n.image}}">
+												{% endfor %}
+											</a>
+										</div>
+										<div class=info>
+											<h3 style="color: #666; margin: 10px;">{{ name }}</h3>
+										</div>
+									</div>
+									<p style="color: #ccc; margin: 10px 10px -5px 10px;">描述:我是一个热爱python django的人</p>
+								</section>
+							{% else %}
+								<section class=box>
+									<header> 加入讨论？ </header>
+									{% block invite2 %}
+										<a class="btn success" href="/accounts/register">注册</a>
+									{% endblock %}
+									或者
+									<a class="btn" href="/accounts/login">登录</a>
+								</section>
+							{% endif %}
+							{% endblock %}
+							{% block sidebarin %}{% endblock %}
+							<section class=box>
+								<header>感谢您对我社区的支持</header>
+								<a href="http://www.python.org">
+								</a>
+							</section>
+						</div>
+					{% endblock %}
+				</div>
+				{% endblock %}
+			</div>
+		</div>
+		<footer>
+			<div class=container>
+				<div class=pull-left>
+					<p class=copyright> &copy; 2013 Jeapedu 社区. </p>
+				</div>
+				<div class=pull-right>
+					<p>
+						<a href="#Top">Back to top</a>
+					</p>
+				</div>
+			</div>
+		</footer>
+		{% if False %}
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+		{% endif %}
+		<script type="text/javascript" src="http://v2ex.com/static/js/jquery.js"></script>
+		<!--script type="text/javascript" src="http://use.typekit.com/ezc0pjj.js"></script-->
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+		<div class=wuyila>
+		</div>
+    <script type="text/javascript">
+      $(function(){
+          $('p.alert').click(function(){
+          $(this).fadeOut();
+          });
+        });
+    </script>
+		{% block script %}{% endblock %}
+	</body>
+</html>

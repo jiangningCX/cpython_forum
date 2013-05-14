@@ -1,0 +1,38 @@
+<html><head>
+<meta charset="utf-8">
+<title>Django sns </title>
+<link rel=stylesheet href="/static/style/default.css?v=2014">
+<link rel=stylesheet href="/static/style/popup.css?v=2014">
+
+</head>
+<body>
+
+
+{%for n in articles%}
+
+<div class="item-wrapper"><div class="w-item pic-left">
+  <div class="w-item-inner">
+    <div class="w-item-avatar">
+      <a class="user-show" href="">
+        <img src="{{n.image}}" width="50" height="50">
+        <i class="mask"></i>
+      </a>
+    </div>
+    <div class="w-item-header">
+      <a href="" class="owner-name user-show">{{n.title}}</a> <a class="time bg-link" href="" target="_blank">{{n.date}}</a>
+      <div class="w-item-action">
+        <a href="#" class="comments"><i></i> 评论</a>
+        <a href="#" class="retweet"><i></i> 转发</a>
+        
+        <a href="#" class="favorite">收藏</a>
+      </div>
+    </div>
+    <div class="w-item-content clearfix">
+      <div class="text">{{n.content}}</div>
+    </div>
+  </div>
+</div></div>
+
+{%endfor%}
+
+</body></html>

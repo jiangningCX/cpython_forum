@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% block title %}{{ node.name }}{% endblock %}
+{% if node.style and node.style != '' and node.style != 'None' %}
+	{% block style %}
+		<style type="text/css">{{ node.style }}</style>
+	{% endblock %}
+{% endif %}
+{% block bread %}{% endblock %}
+{% block sidebarin %}
+	{% if session.user_id %}
+		<section class=box>
+			<a class="btn btn-primary" href="/topics/new">创建主题</a>
+		</section>
+	{% endif %}
+	<section id=description class=box>
+		<header>
+		{{ node.name }}
+		</header>
+		{{ node.description}}
+	</section>
+	<section class="box">
+	</section>
+{% endblock %}
+{% block body %}
+	<div id=mainbar class=span9>
+		{% if 1 %}
+			<section id=topics class="box no-padding">
+				<header class=node>
+					<span class=fl style="font-weight: normal;">
+						<a href="/">编程公园</a>
+						<span class="gray list chevron">›</span>
+						<span class=list style="color: #aaa;">
+							{{ node.name }}
+						</span>
+					</span>
+					<span class=fr>
+						<span class=snow>主题总数</span>
+						<strong class="gray list">{{ topicscount }}</strong>
+					</span>
+				</header>
+				<table class=item-list>
+					<tbody>
+						{% for topic in topics %}
+							<tr class=item>
+								<td class=avatar>
+									<a href="/accounts/name">
+										<img src="{{ topic.author.avatar }}" style="width: 48px;height: 48px;">
+									</a>
+								</td>
+								<td>
+									<h3>
+										<a class=title href="/topic/{{ topic.id  }}">{{ topic.title }}</a>
+									</h3>
+									<div class=info>
+										<span class=tags>
+										</span>
+										<span class=author>
+											<a href="/accounts/name">{{ topic.author.name }}</a>
+										</span>
+										<span class=time>
+											创建于 {{ topic.date }}
+										</span>
+									</div>
+								</td>
+								<td class="reply-count last">
+								</td>
+							{% if name %}
+								<td><p align="right"><a class=close href="/topic/delid">×</a></p>
+							{% endif %}
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</section>
+		{% else %}
+			<section class=box>
+			暂无相关主题，来
+			{% if name %}
+				<a class="btn btn-primary" href="/topic/new">创建第一个主题</a>
+			{% else %}
+				创建第一个主题
+			{% endif %}吧^_^
+			</section>
+		{% endif %}
+	</div>
+{% endblock %}

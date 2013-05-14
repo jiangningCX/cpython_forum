@@ -1,0 +1,21 @@
+<section id=nodes class="box no-padding">
+	<header>节点导航</header>
+		<table class=item-list>
+			<tbody>
+				{% for nodeclass in nodeclasses %}
+					{% if nodeclass.nodes.first() and nodeclass.name != '' %}
+						<tr>
+							<td width=60 style="color:#ccc">{{ nodeclass.name }}</td>
+							<td class=viewtags>
+								{% for node in nodeclass.nodes.all() %}
+									<span class="tags enu">
+										<a href="{{ url_for('node.index', nodesite=node.site) }}">{{ node.name }}</a>
+									</span>
+								{% endfor %}
+							</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+			</tbody>
+		</table>
+</section>

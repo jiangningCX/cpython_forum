@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block title %}创建博客 › {{ node.name }}{% endblock %}
+{% block sidebarin %}
+	<section id=description class=box>
+		<header>
+		{{ node.name }}
+		</header>
+		{{ node.description|safe }}
+		{% if session.user_id ==1 %}
+			<hr>
+			<a class=btn href="{{ url_for('node.node_edit', nodesite=node.site) }}" style="margin-top: -15px;">节点编辑</a>
+		{% endif %}
+	</section>
+{% endblock %}
+{% block breadcrumb %}<li><a href="{{ url_for('node.index', nodesite=node.site) }}">{{ node.name }}</a>{% endblock %}
+{% block body %}
+	{% if session.user_id %}
+		<div id=mainbar class=span9>
+			{% if g.error %}
+				<p class="alert alert-block alert-error">错误：{{ g.error }}</p>
+			{% endif %}
+			<section class=box>
+				<form action="{{ url_for('blog.blog_add') }}" method=post class=new_topic>
+					<legend>创建博客<span class="gray little" style="float: right;"><a href="javascript:void(function(){var%20d%20=%20document,a%20=%20'setAttribute',s%20=%20d.createElement('script');s[a]('tyle','text/javascript');s[a]('src','http://weibotuchuang.sinaapp.com/bookmark.js');d.head.appendChild(s);})();">Add Image</a></span></legend>
+					<div class=form-horizontal>
+						<div class=control-group>
+							<label class=control-label>标题：</label>
+							<div class=controls>
+								<input id=topic_title type=text size=30 name=title style="width: 450px;">
+							</div>
+						</div>
+						<div class=control-group>
+							<label class=control-label>正文：</label>
+							<div class=controls>
+								<textarea id=editor-input rows=20 name=text cols=40 style="width: 450px;"></textarea>
+							</div>
+						</div>
+						<div class=form-actions>
+							<input class="btn btn-primary" type=submit value=果断提交 name=commit>
+						</div>
+					</div>
+				</form>
+			</section>
+		</div>
+	{% endif %}
+{% endblock %}

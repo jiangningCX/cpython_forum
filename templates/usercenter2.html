@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% from "_page.html" import paginate %}
+{% block title %}
+	{% if g.user %}
+		{% if g.user.name == user.name %}
+			个人中心
+		{% else %}
+			{{ user.name }}
+		{% endif %}
+	{% else %}
+		{{ user.name }}
+	{% endif %}
+{% endblock %}
+{% block sidebarin1 %}
+<section class=box>
+	<header>个人统计</header>
+	<ul>
+		<li>话题数 {{ topiccount }}</li>
+		<li>回帖数 {{ replycount }}</li>
+	</ul>
+</section>
+{% if user.id == session.user_id %}
+	<section class=box>
+		<a href="{{ url_for('account.favorites') }}">主题收藏</a>
+		<a href="{{ url_for('account.times') }}">时间账单</a>
+	</section>
+{% endif %}
+{% endblock %}
+{% block bread %}{% endblock %}
+{% block body %}
+	<div id=mainbar class=span9>
+		<section id=profile class=box>
+			<div class=profile-wrap>
+				<div class=profile-inner>
+					<div class=avatar>
+						<img src="{{ user.email|gravatarbig }}">
+					</div>
+					<div class=info>
+						<h2>
+							{{ user.name }}
+							<small>@{{ user.name }}</small>
+						</h2>
+						<p style="color: #ccc; font-size: 12px;">Feather 第 {{ user.id }} 号会员，加入于 {{ user.date|datetimeformat2 }}</p>
+						{% if user.emailswitch == 1 %}
+							<p style="color: #ccc; font-size: 12px;">Email: {{ user.email|emailtobase64 }}</p>
+						{% endif %}
+						{% if user.description %}
+							<p>{{ user.description }}</p>
+						{% endif %}
+						{% if user.website %}
+							<a rel="external nofollow" href="{{ user.website }}" target="_blank">{{ user.website }}</a>
+						{% endif %}
+						{% if user.city and user.city.name != '' %}
+							<div class=tags>
+								<a href="{{ url_for('city.city_view', citysite=user.city.site) }}">{{ user.city.name }}</a>
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</section>
+		{% if user.topics %}
+			{% include "_topiclist.html" %}
+		{% endif %}
+		{{ paginate(page_obj, page_url) }}
+	</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}编辑回复 > {{ topic.title }}{% endblock %}
+{% if topic.node.style and topic.node.style != '' and topic.node.style != 'None' %}
+	{% block style %}
+		<style type="text/css">{{ topic.node.style }}</style>
+	{% endblock %}
+{% endif %}
+{% block body %}
+	{% if session.user_id %}
+		<div id=mainbar class=span9>
+			<section id=editor class=box>
+				<form action="{{ url_for('reply.reply_edit', reply_id=reply.id, page=page) }}" method=post class=new_topic>
+					<div class=full-input-wrap>
+						<textarea id=editor-input rows=20 name=reply[content] cols=40>{{ reply.text_origin }}</textarea>
+					</div>
+					<div class=control-group>
+						<input class="btn primary" type=submit value=更新 name=commit>
+					</div>
+				</form>
+			</section>
+		</div>
+	{% endif %}
+{% endblock %}

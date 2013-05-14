@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block title %}文章编辑{% endblock %}
+{% if node.style and node.style != '' and node.style != 'None' %}
+	{% block style %}
+		<style type="text/css">{{ node.style }}</style>
+	{% endblock %}
+{% endif %}
+{% block breadcrumb %}
+	<li>
+		<a href="/">{{ node.name }}</a>
+	</li>
+{% endblock %}
+{% block body %}
+	{% if session.user_id %}
+		<div id=mainbar class=span9>
+			{% if error %}
+				<p class="alert alert-block alert-error">错误：{{ error }}</p>
+			{% endif %}
+			<section class=box>
+				<form action="" method=post class=new_topic>
+					<legend>编辑节点</legend>
+					<div class=form-horizontal>
+						<div class=control-group>
+							<label class=control-label>节点名：</label>
+							<div class=controls>
+								<input id=topic_title type=text value="{{ article.title }}" size=30 name=nodename>
+							</div>
+						</div>
+						<div class=control-group>
+							<label class=control-label>节点地址：</label>
+							<div class=controls>
+								<input id=topic_title type=text value="/" size=30 name=nodesite>
+							</div>
+						</div>
+						<div class=control-group>
+							<label class=control-label>节点类别：</label>
+							<div class=controls>
+								<input id=topic_title type=text value="{{ article.content }}" size=30 name=nodeclass>
+							</div>
+						</div>
+						<div class=control-group>
+							<label class=control-label>节点信息：</label>
+							<div class=controls>
+								<textarea name=description rows=5 cols=5 style="width: 450px;">{{ article.content }}</textarea>
+							</div>
+						</div>
+						<div class=control-group>
+							<label class=control-label>头部样式：</label>
+							<div class=controls>
+								<textarea name=header rows=5 cols=5 style="width: 450px;">{{ node.header_origin }}</textarea>
+							</div>
+						</div>
+						<div class=control-group>
+							<label class=control-label>自定义样式：</label>
+							<div class=controls>
+								<textarea name=style rows=5 cols=5 style="width: 450px;">{{ node.style }}</textarea>
+							</div>
+						</div>
+						<div class=form-actions>
+							<input class="btn btn-primary" type=submit value=更新节点 name=commit>
+						</div>
+					</div>
+				</form>
+			</section>
+		</div>
+	{% endif %}
+{% endblock %}

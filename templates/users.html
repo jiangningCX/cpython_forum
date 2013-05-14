@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% load inbox %}
+{% block title %}会员{% endblock %}
+{% block script %}
+<style type="text/css">
+	.user_list {
+		margin-left: 0;
+		padding-bottom: 20px;
+	}
+	.user_list h2 {
+		font-size: 14px;
+		margin: 0;
+	}
+	.user_list .span1 {
+		margin-left: 20px;
+		margin-top: 20px;
+		text-align: center;
+		width: 70px;
+	}
+	.user_list .span1 .avatar img {
+		height: 48px;
+		width: 48px;
+	}
+	.clearfix {
+		margin-bottom: 18px;
+	}
+	.clearfix:before, .clearfix:after {
+		content: "";
+		display: table;
+	}
+	.clearfix:after {
+		clear: both;
+	}
+</style>
+{% endblock %}
+{% block usersactive %}<li class=active>{% endblock %}
+{% block sidebar %}{% endblock %}
+{% block breadcrumb %}
+	<li class=active>
+		会员
+		<span class=divider>/</span>
+	</li>
+	<li>
+		<a href="/">排行榜</a>
+	</li>
+{% endblock %}
+{% block main %}
+		<div id=host_users class="user_list box clearfix">
+		{% for n in uploadimages %}
+			{% for user in users %}
+				<div class="item span1">
+					<div class=avatar>
+						<a href="">
+							<img src="/static/{{n.image}}">
+						</a>
+					</div>
+					<div class=name>
+						<a href="/">
+							{{ user }}
+						</a>
+					</div>
+				</div>
+			{% endfor %}
+							{% endfor %}
+		</div>
+{% endblock %}

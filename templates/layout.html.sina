@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{% block title %}首页{% endblock %} - Feather</title>
+		<link rel=stylesheet type=text/css href="http://monroe.sinaapp.com/css/feather.css">
+		<link rel="shortcut icon" href="/static/favicon.ico" />
+		<script type="text/javascript" src="http://monroe.sinaapp.com/js/jquery.min.js"></script>
+		{% block script %}{% endblock %}
+	</head>
+	<body>
+		<div id=topbar class=navbar style="box-shadow: 0 5px 10px rgba(0,0,0,0.6);">
+			<div class=navbar-inner>
+				<div class=container>
+					{% include "_logo.html" %}
+					<div class=nav-collapse>
+						<ul class="nav nav-pills">
+							{% block usersactive %}
+							<li>
+							{% endblock %}
+								<a href="{{ url_for('account.users') }}">会员</a>
+							</li>
+							{% block bankactive %}
+							<li>
+							{% endblock %}
+								<a href="{{ url_for('timesystem.bank') }}">时间规划局</a>
+							</li>
+						</ul>
+						<ul class="nav nav-pills pull-right">
+						{% if not session.user_id %}
+							<li>
+							{% block invite %}
+								<a href="{{ url_for('account.register') }}">注册</a>
+							{% endblock %}
+							</li>
+							<li>
+								<a href="{{ url_for('account.login') }}">登录</a>
+							</li>
+						{% else %}
+							{% if g.notify != 0 %}
+								<li class="notifications unread">
+							{% else %}
+								<li class=notifications>
+							{% endif %}
+									<a href="{{ url_for('account.notify') }}">
+										<span class=count>{{ g.notify }}</span>
+									</a>
+								</li>
+								<li>
+									<a href="/member/{{ session.user_id|getusername }}">个人中心</a>
+								</li>
+								<li>
+									<a href="{{ url_for('account.setting', user_id=session.user_id) }}">设置</a>
+								</li>
+								<li>
+									<a href="/logout" data-method=delete rel=nofollow>登出</a>
+								</li>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id=main>
+			<div class=container>
+				{% block bread %}
+				<div class=row>
+					<div class=span12>
+						<ul class=breadcrumb>
+							<li>
+								<a href="{{ url_for('topic.tab_view') }}">Feather</a>
+								<span class=divider>/</span>
+							</li>
+							{% block breadcrumb %}<li class=active>首页</li>{% endblock %}
+						</ul>
+					</div>
+				</div>
+				{% endblock %}
+				{% block main %}
+				<div class=row>
+					{% for message in get_flashed_messages() %}
+						<p class="alert alert-block alert-success" style="margin-left: 30px;">{{ message }}</p>
+					{% endfor %}
+					{% block body %}{% endblock %}
+					{% block sidebar %}
+						<div id=sidebar class=span3>
+							{% if session.user_id %}
+								<section class="profile box">
+									<div class=clearfix>
+										<div class=avatar>
+											<a href="{{ url_for('account.usercenter', username=session.user_id|getusername) }}">
+												<img src="{{ session.user_id|getuseremail|gravatar }}">
+											</a>
+										</div>
+										<div class=info>
+											<h3 style="color: #666;">{{ session.user_id|getusername }}</h3>
+											<p style="color: #ccc;">{{ session.user_id|getuserdescription }}</p>
+										</div>
+									</div>
+									{% if session.user_id|getusertimeswitch == 1 %}
+										<hr>
+										<a href="/times" class=balance_area>
+										<span style="font-size: 24px; line-height: 24px;">
+											<b>{{ session.user_id|getuserhour }} : {{ session.user_id|getuserminute }}</b>
+										</span>
+										</a>
+									{% endif %}
+								</section>
+							{% else %}
+								<section class=box>
+									<header> 加入讨论？ </header>
+									{% block invite2 %}
+										<a class="btn success" href="{{ url_for('account.register') }}">注册</a>
+									{% endblock %}
+									或者
+									<a class="btn" href="{{ url_for('account.login') }}">登录</a>
+								</section>
+							{% endif %}
+							{% block sidebarin %}{% endblock %}
+							<section class=box>
+								<header>感谢</header>
+								<a href="http://flask.pocoo.org">
+									<img src="http://ww4.sinaimg.cn/large/a74ecc4cjw1dv0v7ysq9dj.jpg">
+								</a>
+							</section>
+						</div>
+					{% endblock %}
+				</div>
+				{% endblock %}
+			</div>
+		</div>
+		<footer>
+			<div class=container>
+				<div class=pull-left>
+					<p class=copyright> &copy; Feather 社区. </p>
+					<p style="color: #3d3d3d;text-shadow: 0px -1px #bbb,0 1px #fff; color:#e3e1e1;">Lovingly made by <b>Monroe</b>.</p>
+				</div>
+				<div class=pull-right>
+					<p>
+						<a href="#Top">Back to top</a>
+					</p>
+				</div>
+			</div>
+		</footer>
+		<script type="text/javascript" src="http://monroe.sinaapp.com/js/ezc0pjj.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+		<script type="text/javascript" src="http://monroe.sinaapp.com/js/jquery.scrollTo.js"></script>
+		<div class=wuyila>
+			<script language="javascript" type="text/javascript" src="http://js.users.51.la/14649465.js"></script>
+			<noscript><a href="http://www.51.la/?14649465" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/14649465.asp" style="border:none" /></a></noscript>
+		</div>
+	</body>
+</html>

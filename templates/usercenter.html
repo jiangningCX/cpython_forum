@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block title %}
+	{% if g.user %}
+		{% if g.user.name == user.name %}
+			个人中心
+		{% else %}
+			{{ user.name }}
+		{% endif %}
+	{% else %}
+		{{ user.name }}
+	{% endif %}
+{% endblock %}
+{% block sidebarin1 %}
+<section class=box>
+	<header>个人统计</header>
+	<ul>
+		<li>话题数 {{ topiccount }}</li>
+		<li>回帖数 {{ replycount }}</li>
+	</ul>
+</section>
+{% if user.id == session.user_id %}
+	<section class=box>
+		<a href="/">主题收藏</a>
+		<a href="/">时间账单</a>
+	</section>
+{% endif %}
+{% endblock %}
+{% block bread %}{% endblock %}
+{% block body %}
+	<div id=mainbar class=span9>
+		<section id=profile class=box>
+			<div class=profile-wrap>
+				<div class=profile-inner>
+					<div class=avatar>
+						<img src="/static/{{image_urls.image}}">
+					</div>
+					<div class=info>
+						<h2>
+							{{ user }}
+							<small>@{{ user }}</small>
+						</h2>
+						<p style="color: #ccc; font-size: 12px;">Feather 第 {{ user_id }} 号会员，加入于 (用户加入时间)</p>
+						{% if user.emailswitch == 1 %}
+							<p style="color: #ccc; font-size: 12px;">Email: (用户EMAIL)</p>
+						{% endif %}
+						{% if user.description %}
+							<p>用户内容</p>
+						{% endif %}
+						{% if user.website %}
+							<a rel="external nofollow" href="/" target="_blank">.....</a>
+						{% endif %}
+						{% if user.city and user.city.name != '' %}
+							<div class=tags>
+								<a href="/">{{ user.city.name }}</a>
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+	</div>
+{% endblock %}

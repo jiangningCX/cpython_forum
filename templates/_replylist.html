@@ -1,0 +1,47 @@
+<section id=replies class="box no-padding">
+	<table class=item-list>
+		<tbody>
+		{% for reply in page_obj.items %}
+			<tr id="reply-{{ reply.id }}" class=reply>
+				<td class=avatar>
+					<img src="{{ reply.author.email|gravatar(size=48) }}" style="width: 48px; height: 48px;">
+				</td>
+				<td>
+					<article>
+						<header class=clearbox style="height: 23px;">
+							<div class=left>
+								<a class=dark href="{{ url_for('account.usercenter', username=reply.author.name) }}" style="font-size: 14px;">{{ reply.author.name }}</a>
+								<span id={{ reply.number }} class="innumber gray little list_big">{{ reply.number }}</span><span class="gray little"> 楼,</span>
+								<span class="gray little list">{{ reply.date|datetimeformat }}</span>
+								<span class=gray id="thankview-{{ reply.id }}">
+								{% if reply.thankers.all() != [] %}
+										<span id=heart class=list style="font-size: 11px; font-family: 'DejaVu Sans';">♥</span><span id="thankcount-{{ reply.id }}" class=thankcount>{{ reply.id|getreplythankerscount }}</span>
+								{% endif %}
+								</span>
+							</div>
+							<div class=right>
+								{% if session.user_id != reply.author.id and session.user_id %}
+									{% if reply not in g.user.thanks %}
+										<span class="thank_area" id="thank_area_{{ reply.id }}">
+											<a class=light onclick="thankReply({{ reply.id }});" title="感谢回复者" href="#;">♥</a>
+										</span>
+									{% else %}
+										<span class="thanked_area">♥</span>
+									{% endif %}
+								{% endif %}
+								{% if session.user_id == reply.author.id or session.user_id == 1 %}
+									<a class="light little list" href="{{ url_for('reply.reply_edit', reply_id=reply.id, page=page) }}">编辑</a>
+								{% endif %}
+								<span class="reply_icon">
+									<a class="at list" onclick="replyOne('{{ reply.author.name }}','{{ reply.number }}');" href="#;"><img align=absmiddle border=0 alt=Reply src="/static/img/reply.png"></a>
+								</span>
+							</div>
+						</header>
+						<div class=reply_content>{{ reply.text|safe }}</div>
+					</article>
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+</section>

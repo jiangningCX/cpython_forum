@@ -1,0 +1,83 @@
+{% load pagination_tags %}
+<section id=topics class="box no-padding">
+	<table class=item-list>
+		<tbody>
+			{% if 1 %}
+				<header>
+					{% if 1 %}
+						<span class="tags tabs current">
+							<a href="/">全部</a>
+						</span>
+					{% else %}
+						<span class="tags tabs">
+							<a href="/">全部</a>
+						</span>
+					{% endif %}
+
+					{% for nodecate in nodecates %}
+						{% if 1%}
+							{% if 1 %}
+								<span class="tags tabs current">
+									<a href="/">{{ nodecate.name }}</a>
+								</span>
+							{% else %}
+								<span class="tags tabs">
+									<a href="/">{{ nodecate.name }}</a>
+								</span>
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+				</header>
+			{% endif %}
+			{% autopaginate articles 6 %}
+			{% for article in articles %}
+				<tr class=item id=topic-{{ topic.id }}>
+					<td class=avatar>
+						<a href="/topic/">
+							<img src="/static/{{uploadimagess.image}}" style="height: 48px; width:48px;">
+						</a>
+					
+					</td>
+					<td>
+						<h3>
+						<!--	<a class=title href="/">{{ article.title }}</a>-->
+						</h3>
+						<div class=info>
+							<span class=tags>
+								<a class=gray href="/say/{{article.id}}">{{ article.title}}</a>
+							</span>
+							<span class="author list_big little">
+								<a class=title href="/" style="color: #aaa;font-weight:bolder;">{{ topic.author.name }}</a>
+							</span>
+							<span class="time gray little">
+								创建于 :{{ article.date}}作者:{{article.user}}
+								{% if 1 %}
+								<!--	<a class=title href="/" style="color: #aaa;font-weight:bolder;">{{ topic.id}}</a>
+									回复于 :{{ article.date }}
+								{% endif %}-->
+							</span>
+						</div>
+					</td>
+					<td class="reply-count last">
+						{% if name %}
+							{% if 1 %}
+								<a href="/update/{{article.id}}" class=read>{{i}}</a>
+							{% else %}
+								<a href="/">b</a>
+							{% endif %}
+						{% else %}
+							<a href="/">c</a>
+						{% endif %}
+					</td>
+					{% if 1 %}
+						<td><p align="right"><a class=close href="/delete/{{article.id}}">×</a></p>
+					{% endif %}
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+			{% paginate %}
+		<footer>
+			<a href="/">» 更多话题</a>
+		</footer>
+</section>

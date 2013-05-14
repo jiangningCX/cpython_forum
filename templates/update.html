@@ -1,0 +1,21 @@
+<div class="container">
+
+ <div class="styleguide">
+  <div class="menu-container">
+   <ul class="menu">
+   <li>名字: {% if name != '' %} {{name}}{% endif %}</li>
+   <li>关注</li>
+   <li>其他</li>
+   </ul>
+  </div>
+
+  <div class="content">
+
+<hr>
+
+<form method="post" action="" >
+        {% csrf_token %}
+<table>
+        {{form.as_table}}
+</table>
+<input type="submit" value="保存" />

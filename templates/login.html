@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}登录{% endblock %}
+{% block bread %}{% endblock %}
+{% block sidebar %}{% endblock %}
+{% block body %}
+		<div class="span4" style="margin-left: 240px;" >
+		<section id="login-form" class="box">
+			<form method="post" action="">
+			{% csrf_token %}
+			<table>
+				<tr>
+				<td>{{ form.username.label_tag }}</td>
+				<td>{{ form.username }}</td>
+				</tr>
+			<tr>
+				<td>{{ form.password.label_tag }}</td>
+				<td>{{ form.password }}</td>
+			</tr>
+			</table>
+				<input type="submit" value="登陆" />
+				<input type="hidden" name="next" value="/" />
+			</form>
+		</section>
+		</div>
+{% endblock %}

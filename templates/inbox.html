@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block title %}
+   系统公告
+{% endblock%}
+{% block sidebarin %}
+<section class=box>
+                <header>目标</header>
+                <img src="/static/{{image_urls.image}} ">
+                <p>编程公园,快乐编程</p>
+        </section>
+        <section class=box>
+                <header>全站统计</header>
+                <ul>
+                        <li>用户数 1</li>
+                        <li>话题数 {{count}}</li>
+                        <li>回帖数 {{i}}</li>
+                </ul>
+        </section>
+
+{% endblock %}
+{% block body %}
+{%for message in messages%}
+<div id=mainbar class=span10>
+                <section id=profile class=box>
+                        <div class=profile-wrap>
+                                <div class=profile-inner>
+                                        <div class=avatar>
+                                                <img src="/static/{{image_urls.image}}">
+                                        </div>
+                                        <div class=info>
+                                                <h2>
+							{{message.title}}
+                                                        <small>@{{ user }}</small>
+                                                </h2>
+                                                <p>{{message.content}}</p>
+                                                {% if user.emailswitch == 1 %}
+                                                        <p style="color: #ccc; font-size: 12px;">Email: (用户EMAIL)</p>
+                                                {% endif %}
+                                                {% if user.description %}
+                                                        <p>用户内容</p>
+                                                {% endif %}
+                                                {% if user.website %}
+                                                        <a rel="external nofollow" href="/" target="_blank">.....</a>
+                                                {% endif %}
+                                                {% if user.city and user.city.name != '' %}
+                                                        <div class=tags>
+                                                                <a href="/">{{ user.city.name }}</a>
+                                                        </div>
+                                                {% endif %}
+                                        </div>
+                                </div>
+                        </div>
+        </div>
+{%endfor%}
+{% endblock %}

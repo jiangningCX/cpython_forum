@@ -1,0 +1,62 @@
+{% load pagination_tags %}
+<link rel=stylesheet type=text/css href="/static/style/d.css?v=2014">
+<link rel=stylesheet type=text/css href="/static/style/p.css?v=2014"-->
+<section id=topics class="box no-padding">
+<table class=item-list>
+<header>
+                                        {% if 1 %}
+                                                <span class="tags tabs current">
+                                                        <a href="/">全部</a>
+                                                </span>
+                                        {% else %}
+                                                <span class="tags tabs">
+                                                        <a href="/">全部</a>
+                                                </span>
+                                        {% endif %}
+
+                                        {% for nodecate in nodecates %}
+                                                {% if 1%}
+                                                        {% if 1 %}
+                                                                <span class="tags tabs current">
+                                                                        <a href="/">{{ nodecate.name }}</a>
+                                                                </span>
+                                                        {% else %}
+                                                                <span class="tags tabs">
+                                                                        <a href="/">{{ nodecate.name }}</a>
+                                                                </span>
+                                                        {% endif %}
+                                                {% endif %}
+                                        {% endfor %}
+                                </header>
+</section>
+
+{% autopaginate articles 6 %}
+{% for article in articles %}
+<tr class=item id=topic-{{ topic.id }}>
+<div class="item-wrapper"><div class="w-item pic-left">
+  <div class="w-item-inner">
+    <div class="w-item-avatar">
+      <a class="user-show" href="/">
+        <img src="/static/{{image_urls.image}}" width="50" height="50">
+        <i class="mask"></i>
+      </a>
+    </div>
+    <div class="w-item-header">
+      <a href="" class="owner-name user-show">{{article.title}}</a> <a class="time bg-link" href="" target="_blank">{{article.date}}</a>
+      <div class="w-item-action">
+        <a href="/say/{{article.id}}" class="comments"><i></i> 评论</a>
+        <a href="/update/{{article.id}}" class="retweet"><i></i> 更新</a>
+        <a href="/delete/{{article.id}}" class="comments"><i></i>删除</a>
+      </div>
+    </div>
+    <div class="w-item-content clearfix">
+      <div class="text">{{article.content}}</div>
+    </div>
+  </div>
+</div></div>
+
+{%endfor%}
+{% paginate %}
+</table>
+</body></html>
+
