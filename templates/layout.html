@@ -97,7 +97,11 @@
 										<div class=avatar>
 											<a href="/member/{{name}}">
 												{% for n in uploadimages %}
+												{%if n %}
 												<img src="/static/{{n.image}}">
+												{%else%}
+												<img src="/static/static/media/gravatar.png">
+												{%endif%}
 												{% endfor %}
 											</a>
 										</div>

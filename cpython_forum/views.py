@@ -34,13 +34,16 @@ def index(request):
 	articles    = Article.objects.all().order_by('-id')
 	for article in articles:
 		print article.username_id
-		uploadimage = Upload.objects.all()
-		for n in uploadimage:
-			print n
-			if n.user_id is not None:
-				uploadimagess = Upload.objects.get(user_id=article.username_id)
+
+		img = Upload.objects.filter(user_id=article.username_id)
+
+		for n in img:
+			if img:
+				image = n.image
 			else:
-				uploadimagess = Upload.objects.get(pk=1)
+				image = "static/media/gravatar.png"
+
+			setattr(article,"image",image)
 				
 #	for article in articles:
 #		sayss = says.objects.filter(sayid=article.id)
@@ -54,17 +57,12 @@ def index(request):
 #	for user_all in u_all:
 #		print user_all.username
 	image_urls   = Image.objects.get(pk=1)
-	uploadimage = Upload.objects.all()
-	for n in uploadimage:
-		print n
-	if request.user.id  and n.user_id is not None:
-		uploadimages = Upload.objects.filter(user_id=request.user.id)
-		print uploadimages
-		for uploadimage in uploadimages:
-			print uploadimage
-	else:
-		
-		uploadimages = Upload.objects.get(pk=1)
+	uploadimages = Upload.objects.filter(user_id=request.user.id)
+	
+	print uploadimages
+	
+	for uploadimage in uploadimages:
+		print uploadimage
 	#name   = Celebrity.objects.filter(user.id == request.user.username)
 	#print name
 #	for image_url in image_urls:
