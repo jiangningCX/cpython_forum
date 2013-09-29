@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+{% extends "layout.html" %}
+{% block body %}
+<div id=mainbar class=span9>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Django Upload Avatar</title>
+    </head>
+<section class=box>
+{% if user %}
+<p>用户名：{{user}}</p>
+<form action="" method="post"  enctype="multipart/form-data">{% csrf_token %}
+ <div>
+  <div style="margin-bottom:20px; margin-top:10px">您当前的头像： </div>
+  {% if name %}
+	<section class="profile box">
+		<div class=clearfix>
+			<div class=avatar>
+				<a href="/member/{{name}}">
+				{% for n in uploadimages %}
+				{% if n %}
+				<img src="/static/{{n.image}}" width="150px" height="150px">
+				{% endif %}
+				{% endfor %}
+			</a>
+			</div>
+
+  <div><img src="static/{{image_usrls.image}}" width="150px" height="150px" /></div>
+  <div style="margin-top:10px">更改头像：<input type="file" name="image"  value="修改图片"/></div>
+  {% else %}
+  <div>修改您的图像<input type="file" name="image"  value="修改图片" /></div>
+  {% endif %}
+ </div>
+ <input type="submit" value="修改" name="submit" />
+</form>
+</section>
+</div>
+</html>
+{% endif %}
+{% endblock%}
+

@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block title %}私信系统{% endblock %}
+{% block body %}
+        {% if name%}
+                <div id=mainbar class=span9>
+                        <section class=box>
+                                <form action="/sendmessages/save/" method=post>
+                                        {% csrf_token %}
+                                        <legend>发送私信</legend>
+                                        <div class=form-horizontal>
+                                                <div class=control-group>
+                                                        <label class=control-label>接收人：</label>
+                                                        <div class=controls>
+                                                                <input id=topic_title type=text size=30 name=subject>
+                                                        </div>
+                                                </div>
+                                                <div class=control-group>
+                                                        <label class=control-label>内容：</label>
+                                                        <div class=controls>
+                                                                <textarea name=boby rows=5 cols=5 style="width: 450px;"></textarea>
+                                                        </div>
+                                                </div>
+                                                <div class=form-actions>
+                                                        <input class="btn btn-primary" type=submit value=发送 name=commit>
+                                                </div>
+                                        </div>
+                                </form>
+
+                        </section>
+                        <section class=box>
+                          <table class=item-list>
+                                 <tbody>
+                         {% for nodecate in nodecates %}
+                         <span class="tags tabs">
+                              <a href="/node/add/{{nodecate.id}}">{{nodecate.name}}</a>
+                         </span>
+                        {% endfor %}
+
+                         </tbody>
+                         </table>
+                        </section>
+
+                </div>
+        {% endif %}
+
+
+
+
+{% endblock %}
+           

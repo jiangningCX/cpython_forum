@@ -1,0 +1,37 @@
+Metadata-Version: 1.1
+Name: django-siteuser
+Version: 0.1.2
+Summary: A Django APP for Universal Maintain Accounts
+Home-page: https://github.com/yueyoum/django-siteuser
+Author: Wang Chao
+Author-email: yueyoum@gmail.com
+License: BSD
+Description: Django-SiteUser
+        
+        A Django app for maintain accounts.
+        
+        *   Register
+        *   Login
+        *   Third Accounts Login
+        *   Change Password
+        *   Reset Password
+        *   Upload Avatar
+        *   User Notification
+        
+        
+        Author: Wang Chao
+        
+        Author_email: yueyoum@gmail.com
+        
+        Usage:
+        
+        See README.md & example
+        
+        github: https://github.com/yueyoum/django-siteuser
+Keywords: django,account,login,register,social,avatar
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Topic :: Internet
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python

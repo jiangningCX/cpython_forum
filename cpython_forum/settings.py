@@ -24,6 +24,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+#APPEND_SLASH=False
+
 AUTH_PROFILE_MODULE = 'cpython_forum.userprofile'
 
 DATABASES = {

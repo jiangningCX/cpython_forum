@@ -1,0 +1,18 @@
+<div class="siteuser">
+    <div {% if social_sites %}class="row-fluid"{% endif %}>
+        <div {% if social_sites %}class="span6"{% endif %}>
+            <div class="siteuserform">
+            {% block siteuserform %}{% endblock %}
+            </div>
+        </div>
+        {% if social_sites %}
+        <div class="span6">
+            <div class="socialsites">
+                {% for s in social_sites %}
+                    <p><a href="{{ s.authorize_url }}">{{ s.site_name_zh }}登录</a></p>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>

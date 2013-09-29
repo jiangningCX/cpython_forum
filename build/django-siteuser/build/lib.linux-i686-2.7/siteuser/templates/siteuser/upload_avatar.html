@@ -1,0 +1,37 @@
+<div id="uploadAvatar">
+    <link rel="stylesheet" href="{{ STATIC_URL }}imgareaselect/css/imgareaselect-default.css" type="text/css" />
+    <script type="text/javascript" src="{{ STATIC_URL }}imgareaselect/jquery.imgareaselect.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/upload_avatar.min.js"></script>
+    
+    <form id="uploadAvatarCropForm" action="{% url 'uploadavatar_crop' %}" method="post" target="uploadAvatarIframe" style="display: none;">
+        {% csrf_token %}
+        <input id="uploadAvatarValueX1" type="text" name="x1"/>
+        <input id="uploadAvatarValueY1" type="text" name="y1"/>
+        <input id="uploadAvatarValueX2" type="text" name="x2"/>
+        <input id="uploadAvatarValueY2" type="text" name="y2"/>
+    </form>
+    
+    <div id="uploadAvatarUploadArea">
+        <form class="form" id="uploadAvatarForm" action="{% url 'uploadavatar_upload' %}" method="post" target="uploadAvatarIframe" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>选择图片</label>
+            <input type="file" id="uploadAvatarInputFile" name="uploadavatarfile" />
+        </form>
+    </div>
+    <iframe id="uploadAvatarIframe" name="uploadAvatarIframe" style="display: none;"></iframe>
+    
+    <div class="row">
+        <div class="span6" id="uploadAvatarSelectArea" style="width: 300px; height: 300px; border: 1px solid #ddd;"></div>
+        <div class="span6" id="uploadAvatarPreviewArea">
+            <p class="muted">预览</p>
+            <div id="uploadAvatarPreviewArea50" style="width: 50px; height: 50px; border: 1px solid #ddd; overflow: hidden; margin-bottom: 10px;"></div>
+            <div id="uploadAvatarPreviewArea120" style="width: 120px; height: 120px; border: 1px solid #ddd; overflow: hidden;"></div>
+        </div>
+    </div>
+    
+    <div id="uploadAvatarBtns" style="margin: 10px 0;">
+        <button class="btn btn-primary" id="uploadAvatarCropSubmit" disabled="disabled">保存</button>
+    </div>
+
+    <div id="uploadAvatarCropResult" class="alert alert-error" style="display: none;"></div>
+</div>

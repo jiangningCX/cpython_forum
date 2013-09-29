@@ -19,4 +19,7 @@ class UploadForm(ModelForm):
 	class Meta:
 		model = Upload
 		exclude = ("user")
-    
+
+class SendmessageForm(forms.Form):
+	subject      =  forms.CharField()
+	body         =  forms.CharField(widget=forms.Textarea)    

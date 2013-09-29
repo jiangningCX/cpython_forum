@@ -31,6 +31,9 @@ urlpatterns = patterns('',
     (r'^messages/$',include('messages.urls')),
     (r'^message/$','cpython_forum.views.gonggao'),
     (r'^gegeda/$','cpython_forum.views.index_gegeda'),
+    (r'^uploadchange/$','cpython_forum.views.uploadchange'),
+    (r'^sendmessages/add/$','cpython_forum.views.sendmessages_add'),
+    (r'^sendmessages/save/$','cpython_forum.views.sendmessages_save'),
 
 )
 

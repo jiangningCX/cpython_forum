@@ -108,3 +108,7 @@ class Upload(models.Model):
         user        = models.OneToOneField(User,unique=True,related_name='profile')
         image       = models.ImageField('Label', upload_to='static/media/',null=True,blank=True)
 
+class Sendmessage(models.Model):
+	subject     = models.CharField(max_length=60)
+	boby        = models.TextField()
+	sender_id   = models.IntegerField()
