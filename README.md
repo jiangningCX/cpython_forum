@@ -9,7 +9,7 @@
   
   'django-pagination'文章分页
   安装方法：python easy_install django-pagination
-
+  
 2.有关于simple报错处理
 
 将django-messages下urls.py中的from django.views.generic.simple import redirect_to

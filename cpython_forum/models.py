@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
+from DjangoUeditor.models import UEditorField
 #import os
 #from upload_avatar.signals import avatar_crop_done
 #from upload_avatar.models import UploadAvatarMixIn
@@ -15,12 +16,14 @@ class Node(models.Model):
 
 class NodeCategory(models.Model):
 	name         = models.CharField(max_length=30)
-	description  = models.TextField()
+#	description  = models.TextField()
+	description      = UEditorField(u'内容      ',height=100,width=500,default='test',imagePath="uploadimg/",imageManagerPath="imglib",toolbars='mini',options={"elementPathEnabled":True},filePath='upload',blank=True)
 	parent       = models.CharField(default="/",max_length=30)
 
 class Article(models.Model):
 	title        = models.CharField(max_length=60)
-	content      = models.TextField()		
+	#content      = models.TextField()
+	content      = UEditorField(u'内容	',height=100,width=500,default='test',imagePath="uploadimg/",imageManagerPath="imglib",toolbars='mini',options={"elementPathEnabled":True},filePath='upload',blank=True)
 	date         = models.DateTimeField(auto_now_add=True, blank=True)
 	user         = models.CharField(max_length=120)
 	username_id  = models.IntegerField()
@@ -64,8 +67,8 @@ class Notify(models.Model):
 class says(models.Model):
 	user = models.CharField(max_length=60)
         created = models.DateTimeField(auto_now_add=True)
-        content = models.TextField()
-        sayid   = models.IntegerField()
+        content = UEditorField(height=100,width=500,default='test',imagePath="uploadimg/",imageManagerPath="imglib",toolbars='mini',options={"elementPathEnabled":True},filePath='upload',blank=True)
+	sayid   = models.IntegerField()
 
 #class User(models.Model, UploadAvatarMixIn):
 #    user = models.ForeignKey('auth.User', related_name='user_info')
@@ -108,7 +111,3 @@ class Upload(models.Model):
         user        = models.OneToOneField(User,unique=True,related_name='profile')
         image       = models.ImageField('Label', upload_to='static/media/',null=True,blank=True)
 
-class Sendmessage(models.Model):
-	subject     = models.CharField(max_length=60)
-	boby        = models.TextField()
-	sender_id   = models.IntegerField()

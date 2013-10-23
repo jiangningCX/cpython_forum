@@ -6,6 +6,7 @@
                         <section class=box>
                                 <form action="/topic/save" method=post class=new_topic>
                                         {% csrf_token %}
+					<form method="post" action="" >
                                         <legend>新建话题</legend>
                                         <div class=form-horizontal>
                                                 <div class=control-group>
@@ -17,7 +18,52 @@
                                                 <div class=control-group>
                                                         <label class=control-label>内容：</label>
                                                         <div class=controls>
-                                                                <textarea name=content rows=5 cols=5 style="width: 450px;"></textarea>
+								{{form.media}}
+                                                                <textarea name=content id=id_content rows=5 cols=5 style="width: 450px;"></textarea>
+								<script type="text/javascript">
+
+     var id_content= new baidu.editor.ui.Editor({
+
+         "UEDITOR_HOME_URL":"/media/ueditor/",
+
+         
+
+         "imageUrl":"/ueditor/ImageUp/aa/",
+
+         "imagePath":"aa/",
+
+         "scrawlUrl":"/ueditor/scrawlUp/aa/",
+
+         "scrawlPath":"aa/",
+
+         "imageManagerUrl":"/ueditor/ImageManager/aa/",
+
+         "imageManagerPath":"aa/",
+
+         "catcherUrl":"/ueditor/RemoteCatchImage/aa/",
+
+         "catcherPath":"aa/",
+
+         "fileUrl":"/ueditor/FileUp/bb/",
+
+         "filePath":"bb/",
+
+         "getMovieUrl":"/ueditor/SearchMovie/"
+
+         
+
+     });
+
+     id_content.render('id_content');
+
+     id_content.addListener('ready',function(){
+
+         id_content.setHeight(500);
+
+     });
+
+</script>
+
                                                         </div>
                                                 </div>
                                                 <div class=form-actions>

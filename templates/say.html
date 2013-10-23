@@ -1,4 +1,4 @@
-{% extends "layout.html"%}
+{% extends "base.html"%}
 {% block style %}
 
 <style type="text/css">
@@ -98,21 +98,18 @@
 
 	/* 内容颜色、主要颜色 */
 	.s-fc4{color:#737373;}
-	
-	.box1{
-		border-radius:5px 5px 5px 5px;
-		box-shadow:0px 2px 5px rgba(0,0,0,0,0.2);
-		background-color:rgb(255,255,255);
-		border:0px solid rgb(255,255,255);
-	     }
-
 	body {
-		background-image:url("/static/img/bgr.jpg");
-	     }
+		background-color:#dfdfe1;
+	}
+	body {
+		background-image:url("/static/img/love_bg.png");
+	}
+	body {
+		background-attachment:fixed;
+	}
 </style>
 {% endblock %}
 {% block body %}
-
 <!--<div class="span1">
 <script id="jquery_183" type="text/javascript" class="library" src="static/js/12.js ">
 </script>
@@ -127,45 +124,7 @@
 </div>
 </div>
 </div>-->
-<!--<div class="postwrapper box wid700">-->
-<!--模版测试
-<div class="box">
-	
-	
-    
-    
-    <div style="min-height: 73px;" class="cell">
-    	
-    	
-        <div style="padding-left: 10px; padding-bottom: 10px;" class="fr snow">
-        	<a href="/user/410/">
-                <img style="max-width: 64px; max-height: 64px;" alt="amaozhao" src="http://www.gravatar.com/avatar/6868fdf191dcd2f14f8e1b0b3dbc38b4?s=80&amp;d=identicon">
-            </a>
-        </div>
-        
-        
-        <span class="bigger"> 
-        	<a href="/">Django中国社区</a> 
-            <span class="chevron">»</span> 
-            <a href="/forum/sharefound/">分享发现</a> 
-        </span>
-        
-        
-        <h1>发一个自己写的网站应用</h1>
-        
-        
-        <div class="fade"> By <a href="/user/410/">
-        	amaozhao</a> at 1 天前
-            
-            
-             
-                <span>|</span>
-                
-                    <a href="/attention/topic/253/">关注该主题</a>
-                 </div>
-    </div>-->
-<div "span12" style="padding-left:30px;">       
-<section id=profile class=box1>
+<div class="postwrapper box wid700">
 		<div class="block article">
 			<div class=side>
 				<div class=day>
@@ -178,138 +137,46 @@
 			<div class=main>
 				<div class=content>
 					<div class=text>
-						<center>
 						<h2>
-							文章标题：<a href="/say/{{articles.id}}">{{ articles.title }}</a>
+							<a href="/say/{{articles.id}}">{{ articles.title }}</a>
 						</h2>
-						</center>
-						<hr>
-						<p>
-						<td><td>{{ articles.content }}</td></td>
-						</p>
-						</hr>
+						{{ articles.content }}
 					</div>
 				</div>
-				</section>
-				<section id=profile class=box1>
 				<div class=link>
-					<div style="float:right;">
 					<span href="/say/{{articles.id}}">评论({{i}})</span>
-					</div>
 				</div>
 			</div>
 		</div>
-		</section>
-<!--模版测试-->	
-	<div class="sep=20"></div>	
-			 <div class="cell">
-				<div class="fr">
-					</div>
-					<span class="fade">
-						快速回复
-					<span class="snow">|</span>
-					最新文章10小时，23分钟前
-					</span>
-				</div>
-					<section id=profile class=box1>
 						<div class=bcmtlst>
 							<ul class="clearfix ztag">
-							{%for say in says%}
-	<hr noshade="noshade" />
-	<div class="sep20"></div>
-	<div class="cell">
-        <div class="fr">
-        </div>
-        <span class="fade">
-            文章 [ 1 ]
-            <span class="snow">|</span>
-            最新文章 2 天, 12 小时前
-        </span>
-    </div>
-<div id="p1094" class="cell reply">
-	
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tbody><tr>
-        	
-        	
-            <td width="48" valign="top">
-                <a href="/user/399/">
-	                <img style="max-width: 48px; max-height: 48px;" alt="boostbob" src="http://tp3.sinaimg.cn/2466246814/180/5614828359/1">
-                </a>
-            </td>
-            
-            <td width="10"></td>
-            
-            
-            <td width="auto" valign="top">
-                <div id="reply-btns" class="fr">
-                    <strong>
-                        <small class="snow">
-                        	
-                        	
-                        	
-	                        
-	                            
-	                            <a onclick="replyOne('boostbob');" href="#;">
-	                            	<img border="0" align="absmiddle" alt="Reply" src="/static/conanvex/img/reply.png">
-	                            </a> 
-	                            &nbsp;&nbsp;  
-	                            •
-	                            &nbsp;&nbsp;              
-	                        
-                        
-                            <span class="no">                           
-                                
-                                1 楼
-                            </span>
-                        </small>
-                    </strong>
-                </div>
-                
-                <div class="sep3"></div>
-	               
-                
-                <strong>
-                	<a class="dark" href="/">{{say.user}}</a>
-	                
-	                <small class="snow">&nbsp;&nbsp; 2 天, 12 小时前 </small>
-                </strong>
-                                
-                <div class="sep5"></div>
-                
-                
-                <div class="content reply_content">
-                    
-
-
-
-
-
-
-
-
-
-
-    
-    <div class="wmd-show wmd-show-reply" id="post____reply">
-        <p>{{say.content}}</p>
-    </div>
-	
-	
-	
-	
-
-
-
-
-		
-                </div>
-		</hr>
-            </td>
-        </tr>
-    </tbody></table>
-</div>
-
+								{% for say in says %}
+								<li class="s-bd2 s-bg2">
+									<div class="bcmtlsta clearfix">
+										<div class=bcmtlstb>
+											<a href="/" target="_top" title="{{ say.date }}">
+												<img class=itag src="{{ say.user}}">
+											</a>
+										</div>
+										<div class=bcmtlstc>
+											<div class="bcmtlstd clearfix">
+												<div class="bcmtlste clearfix">
+													<div class="bcmtlstg clearfix">
+														<div class="bcmtlsti clearfix">
+															<div class="bcmtlstj clearfix">
+																<a class="s-fc2 itag bcmtlstk" href="/" target="_top">{{ say.user }}</a>
+																<span class="bcmtlstf s-fc4">：</span>
+																<span class="bcmtlstf s-fc4 itag">{{ say.content }}</span>
+															</div>
+														</div>
+													</div>
+													<div class="bcmtlsth clearfix">
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
 									{% endfor %}
 	 <div id=mainbar class=span9>
 		<div class=block>
@@ -332,5 +199,4 @@
 			</div>
 		</div>
 	</div>
-        
 {% endblock %}

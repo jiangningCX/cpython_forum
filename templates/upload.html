@@ -14,7 +14,7 @@
 <form action="" method="post"  enctype="multipart/form-data">{% csrf_token %}
  <div>
   <div style="margin-bottom:20px; margin-top:10px">这是放置您的头像：</div>
-  {% if accout.image %}
+  {% if account.image %}
   <div><img src="static/{{image_usrls.image}}" width="150px" height="150px" /></div>
   <div style="margin-top:10px">更改头像：<input type="file" name="image"  value="上传图片"/></div>
   {% else %}

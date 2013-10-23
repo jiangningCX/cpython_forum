@@ -73,7 +73,7 @@ def index(request):
 	for n in articles:
 		count = count+1
 	#saycount = saycount()
-	return render_to_response("index.html",{'name':request.user.username, 'topics':topics,"nodecates":nodecates,'articles':articles,'count':count,'image_urls':image_urls,'uploadimages':uploadimages},context_instance=RequestContext(request))
+	return render_to_response("index1.html",{'name':request.user.username, 'topics':topics,"nodecates":nodecates,'articles':articles,'count':count,'image_urls':image_urls,'uploadimages':uploadimages},context_instance=RequestContext(request))
 
 def register(request):
 	form = UserCreationForm()
@@ -94,27 +94,27 @@ def node_index(request):
             "nodecates":nodecates,"topic":topic},context_instance=RequestContext(request))
 
 def say(request,offset):
-	if request.user.is_authenticated():
-		form = saysForm()
-		try:
-			offset = int(offset)
-		except ValueError:
-			raise Http404()
-		articles = Article.objects.get(id=offset)
-		
-		if request.method == 'POST':
-			new_say = says(content = request.POST['content'],sayid=offset,user=request.user.username)
-			new_say.save()
-		saysss = says.objects.all()
-		s = 0
-		for n in saysss:
-			s=s+1
-		sayss = says.objects.filter(sayid = offset)
-		i = 0
-		for n in sayss:
-			i = i+1
-		return render_to_response("say.html",{"name":request.user.username,"articles":articles,"form":form,"says":sayss,"i":i,"s":s},context_instance=RequestContext(request))
-	return render_to_response("say.html")
+	form = saysForm()
+	try:
+		offset = int(offset)
+	except ValueError:
+		raise Http404()
+	articles = Article.objects.get(id=offset)
+	article  = Article.objects.filter(user=articles.user)
+	
+	if request.method == 'POST':
+		new_say = says(content = request.POST['content'],sayid=offset,user=request.user.username)
+		new_say.save()
+	saysss = says.objects.all()
+	s = 0
+	for n in saysss:
+		s=s+1
+	sayss = says.objects.filter(sayid = offset)
+	i = 0
+	for n in sayss:
+		i = i+1
+	return render_to_response("say3.html",{"name":request.user.username,"articles":articles,"form":form,"says":sayss,"i":i,"s":s,"article":article},context_instance=RequestContext(request))
+	return render_to_response("say3.html")
 
 def delete_list(request,offset):
 	if request.user.is_authenticated():
@@ -142,10 +142,13 @@ def update(request,offset):
 
 		if request.method == "POST":
 			u = Article.objects.get(id = offset)
-			u.title = request.POST['title']
-			u.content = request.POST['content']
-			u.save()
-			return HttpResponseRedirect("/")
+			if request.user.id == u.id:
+				u.title = request.POST['title']
+				u.content = request.POST['content']
+				u.save()
+				return HttpResponseRedirect("/")
+			else:
+				return HttpResponse("用户权限异常！！")
 
 
 ########################################################
@@ -184,37 +187,6 @@ def upload(request):
 
 	return render_to_response("upload.html",{"user":user,"name":request.user.username,"image_urls":image_urls},context_instance=RequestContext(request))
 
-def uploadchange(request):
-	if request.user.is_authenticated():
-		users = User.objects.filter(pk=request.user.id)
-		image_urls = Image.objects.get(pk=2)
-		uploadimages = Upload.objects.filter(user_id = request.user.id)
-		#print image_urls.image
-
-		for user in users:
-			if request.method == "GET":
-				u = Upload.objects.get(user_id = request.user.id)
-				if u.user_id == None:
-					#u.delete()
-					print "u.user_id is None!!!"
-			#	form = UploadForm(request.POST,request.FILFS,instance=user)
-				
-			#	if form.is_valid():
-			#		m = Upload.objects.all()
-			#		m = Upload(image=request.FILES['image'],user=request.user)
-			#		m.save()
-			#		data = form.save()
-			#		data.save()
-			#	else:
-			#		form = UploadForm(instance=user)
-					#return HttpResponseRedirect("/upload/")
-				else:
-					u.delete()
-					return HttpResponseRedirect("/upload/")
-	
-	return render_to_response("uploadchange.html",{"user":user,"name":request.user.username,"image_urls":image_urls,"uploadimages":uploadimages},context_instance=RequestContext(request))
-	
-
 def usercenter(request,user):
 	if request.user.is_authenticated():
 		users = User.objects.all()
@@ -246,23 +218,35 @@ def gonggao(request):
 	image_urls  = Image.objects.get(pk=1)
 	return render_to_response("inbox.html",{"messages":messages,"users":users,'user':user,'name':request.user.username,'image_urls':image_urls},context_instance=RequestContext(request))
 
-def sendmessages_add(request):
-	sendmessages = Sendmessage.objects.all()
-	return render_to_response("node_sixin.html",{'name':request.user.username,'sendmessages':sendmessages},context_instance=RequestContext(request))
+def uploadchange(request):
+        if request.user.is_authenticated():
+                users = User.objects.filter(pk=request.user.id)
+                image_urls = Image.objects.get(pk=2)
+                uploadimages = Upload.objects.filter(user_id = request.user.id)
+                #print image_urls.image
 
-def sendmessages_save(request):
-	
-	if request.method == 'POST':
-		sendmessages = Sendmessage(subject = request.POST['subject'],boby=request.POST['boby'],sender_id = request.user.id)
-		sendmessages.save()
-		return HttpResponseRedirect("/")	
+                for user in users:
+                        if request.method == "GET":
+                                u = Upload.objects.get(user_id = request.user.id)
+                                if u.user_id == None:
+                                        #u.delete()
+                                        print "u.user_id is None!!!"
+                        #       form = UploadForm(request.POST,request.FILFS,instance=user)
 
+                        #       if form.is_valid():
+                        #               m = Upload.objects.all()
+                        #               m = Upload(image=request.FILES['image'],user=request.user)
+                        #               m.save()
+                        #               data = form.save()
+                        #               data.save()
+                        #       else:
+                        #               form = UploadForm(instance=user)
+                                        #return HttpResponseRedirect("/upload/")
+                                else:
+                                        u.delete()
+                                        return HttpResponseRedirect("/upload/")
 
-
-
-
-
-
+        return render_to_response("uploadchange.html",{"user":user,"name":request.user.username,"image_urls":image_urls,"uploadimages":uploadimages},context_instance=RequestContext(request))
 
 '''def find_mimetype(filename):
     """In production, you don't need this,

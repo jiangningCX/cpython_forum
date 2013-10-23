@@ -24,8 +24,6 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-#APPEND_SLASH=False
-
 AUTH_PROFILE_MODULE = 'cpython_forum.userprofile'
 
 DATABASES = {
@@ -156,6 +154,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'grappelli',
     'django.contrib.admin',
+    'DjangoUeditor',
 #    'upload_avatar',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
@@ -192,28 +191,27 @@ LOGGING = {
         },
     }
 }
-'''
-UPLOAD_AVATAR_UPLOAD_ROOT = os.path.join(PROJECT_PATH, 'upload')
-UPLOAD_AVATAR_AVATAR_ROOT = os.path.join(PROJECT_PATH, 'avatar')
-UPLOAD_AVATAR_URL_PREFIX_ORIGINAL = 'uploadedimage/'
-UPLOAD_AVATAR_URL_PREFIX_CROPPED = 'avatar/'
 
-UPLOAD_AVATAR_RESIZE_SIZE = [50, 100, 140]
 
-UPLOAD_AVATAR_WEB_LAYOUT = {
-    'preview_areas': [
-        {
-            'size': 50,
-            'text': 'Small Preview'
-        },
-        {
-            'size': 100,
-            'text': 'Middle Preview'
-        },
-        {
-            'size': 140,
-            'text': 'Large Preview'
-        },
-    ]
-}
-'''
+UEDITOR_SETTINGS={
+                "toolbars":{          
+                    "name1":[[ 'source', '|','bold', 'italic', 'underline']],
+                    "name2":[],
+                },
+                "images_upload":{
+                    "allow_type":"jpg,png",
+                    "path":"",
+                    "max_size":"2222kb",
+                },
+                "files_upload":{
+                     "allow_type":"zip,rar",
+                     "path":"",
+                     "max_size":"2222kb",
+                 },
+                "image_manager":{
+                     "path":""
+                },
+                "scrawl_upload":{
+                    "path":""
+                }
+            }

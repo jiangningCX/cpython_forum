@@ -20,8 +20,8 @@
 </section>
 {% if user.id == session.user_id %}
 	<section class=box>
-		<a href="/">主题收藏</a>
-		<a href="/">时间账单</a>
+		<a href="/upload/">上传头像</a>
+		<a href="/uploadchange/">修改头像</a>
 	</section>
 {% endif %}
 {% endblock %}
@@ -38,7 +38,6 @@
 						<h2>
 							{{ user }}
 							<small>@{{ user }}</small>
-							<a class="btn btn-primary" href="/sendmessages/add">发送私信</a>
 						</h2>
 						<p style="color: #ccc; font-size: 12px;">Feather 第 {{ user_id }} 号会员，加入于 (用户加入时间)</p>
 						{% if user.emailswitch == 1 %}

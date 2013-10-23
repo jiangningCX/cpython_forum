@@ -1,0 +1,486 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <!-- meta -->
+    <meta charset="utf-8" />
+    <meta name='description' content='Python Django专业中文社区'>
+    
+    <meta name="author" content="EDP@TaoBao" />
+    
+    <meta property="wb:webmaster" content="617be6bd946c6b96" />
+    
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="/rss" />
+    <!-- style -->
+    <link rel="stylesheet" href="http://cnodejs.qiniudn.com/public/stylesheets/index.min.c4a3bbf8.css" media="all" />
+    <link rel=stylesheet type=text/css   href="/static/style/feather.css?v=2014">
+    <link rel=stylesheet type=text/css   href="/static/style/default1.css?v=2014">
+
+    
+    <script src="http://cnodejs.qiniudn.com/public/index.min.608faa1f.js"></script>
+
+    
+    
+    <title>python django 中文社区</title>
+    
+  </head>
+
+  <body>
+    <!-- navbar -->
+    <!--<div class='navbar'>
+      <div class='navbar-inner'>
+        <div class='container'>
+          <a class='brand' href='/'><img src="/public/images/logo.png" title="Python Django专业中文社区" /></a>
+          <form id='search_form' class='navbar-search' action="/">
+            <input type='text' id='q' name='q' class='search-query span3' value=''/>
+          </form>
+          <ul class='nav pull-right'>
+            <li><a href='/'>首页</a></li>
+            
+            <li><a href="/message" target="">社区活动</a></li>
+            
+            <li><a href="http://cnodejs.net/" target="_blank">NAE</a></li>
+            
+            <li><a href="/users/" target="">志愿者</a></li>
+            
+            <li><a href="/about" target="">关于我们</a></li>
+            
+            
+            <li><a href='/accounts/register'>注册</a></li>
+            <li><a href='/accounts/login'>登录</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>-->
+<div id=topbar class=navbar style="box-shadow: 0 5px 10px rgba(0,0,0,0.6);">
+			<div class=navbar-inner>
+				<div class=container>
+					{% include "_logo.html" %}
+					{% if name %}
+					<div class=nav-collapse>
+						<ul class="nav nav-pills">
+							{% block usersactive %}
+							<li>
+							{% endblock %}
+								<a href="/users/">会员</a>
+							</li>
+							{% block bankactive %}
+							<li>
+							{% endblock %}
+							</li>
+							{% block aboutactive %}
+							<li>
+							{% endblock %}
+								<a href="/about/">关于</a>
+							</li>
+						</ul>
+						{% endif %}
+						<ul class="nav nav-pills pull-right">
+						{% if not name %}
+							<li>
+							{% block invite %}
+								<a href="/accounts/register">注册</a>
+							{% endblock %}
+							</li>
+							<li>
+								<a href="/accounts/login">登录</a>
+							</li>
+						{% else %}
+							{% if g.notify != 0 %}
+								<li class="notifications unread">
+							{% else %}
+								<li class=notifications>
+							{% endif %}
+									<a href="/message">
+										<span class=count>公告</span>
+									</a>
+								</li>
+								<li>
+									<a href="/member/{{name}}">个人中心</a>
+								</li>
+								<li>
+									<a href="/member/configs/{{name}}">设置</a>
+								</li>
+								<li>
+									<a href="/accounts/logout/?next=/" data-method=delete rel=nofollow>登出</a>
+								</li>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+{% if name %}
+    <!-- wrapper -->
+    <div id='wrapper'>
+      <div id='main'>
+        <div id='sidebar'>
+  <div class='panel'>
+    <div class='header'>
+      <span class='col_fade'>作者</span>
+    </div>
+    <div class='inner'>
+      <div class='user_card'>
+	<div>
+		<a  class='user_avatar'  href="/user/nswbmw">
+			<img src="/" title="nswbmw" />
+		</a>
+		<span class='user_name'><a class='dark' href="/user/nswbmw">{{articles.user}}</a></span>
+
+		
+
+		<div class='board clearfix'>
+			<div class='floor'>
+				<a href='/user/nswbmw/tags/'><span class='big'>0</span> 标签收藏</a>
+				<div class='space'></div>
+				<a href='/user/nswbmw/collections'><span class='big'>0</span> 话题收藏</a>
+			</div>
+			<div class='floor'>
+				<a href='/user/nswbmw/following'><span class='big'>18</span> 关注</a>
+				<div class='space'></div>
+				<a href='/user/nswbmw/follower'><span class='big'>221</span> 粉丝</a>
+				<div class='space'></div>
+				<span class='big'>285</span> 积分
+			</div>
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+    </div>
+  </div>
+  <div class='panel'>
+    <div class='header'>
+      <span class='col_fade'>作者相关话题</span>
+    </div>
+    <div class='inner'>
+      
+      <ul class='unstyled'>
+{% for n in article %}
+      <li>
+	<div><a class='dark' href="/say/{{n.id}}" title="">{{n.title}}</a></div>
+      </li>
+{% endfor %}
+      </ul>
+      
+    </div>
+  </div>
+
+  <div class='panel'>
+    <div class='header'>
+      <span class='col_fade'>站内推荐</span>
+    </div>
+    <div class='inner'>
+      
+      <ul class='unstyled'>
+      <li>
+	<div><a class='dark' href="http://uliweb.cpython.org" title="/">Python Django官方网站</a></div>
+</li>
+<li>
+	<div><a class='dark' href="http://uliweb.cpython.org" title="/">Python 基础学习资料</a></div>
+</li>
+<li>
+	<div><a class='dark' href="http://uliweb.cpython.org" title="/">Python 最全学习文档</a></div>
+</li>
+      </ul>
+      
+    </div>
+  </div>
+</div>
+<div id='content'>
+  <div class='panel'>
+    <div class='header'>
+      <ul class='breadcrumb'>
+        <li><a href='/'>主页</a><span class='divider'>/</span></li>
+        <li class='active'>话题详情</li>
+      </ul>
+    </div>
+    <div class='inner topic'>
+      <h3>
+      
+        <span class='put_top'>Python</span>
+      
+       {{articles.title}}
+      </h3>
+      <hr>
+      <div class='topic_content'>
+        <div class="markdown-text">
+{{ articles.content|safe }}
+</div>
+      </div>
+      <hr>
+      <div class="tags">
+        
+        <span class='col_fade'>标签：无</span>  
+        
+      </div>
+      <div class="changes">
+        <span class='col_fade'>
+          <a class='dark' href="/">{{articles.user}}</a> 在 5-23 19:47 发布<a href="/delete/{{articles.id}}" ><i></i>删除</a>
+        </span>
+        
+        <span class='col_fade'>
+          <a class='dark' href="/">...</a>
+        </span>
+        
+      </div>
+      <div class="action">
+        <a class='dark' id='share_weibo_btn'
+          href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=3020045345',u=z||d.location,p=['&url=',e(u),'&title=',e(t||d.title),'&source=',e(r),'&sourceUrl=',e(l),'&content=',c||'gb2312','&pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','','分享来自CNode的话题：【一起学node.js】再再版啦~','',''));"
+          >分享到 weibo</a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  
+ {% for say in says %} 
+  <div class='panel'>
+    <div class='header'>
+      <span class='col_fade'>{{i}} 回复</span>
+    </div>
+    <div class='cell reply_area reply_item' id="reply1" reply_id="519e1cea63e9f8a542fd1418">
+  <a id="519e1cea63e9f8a542fd1418"></a>
+  <div class='author_content'>
+    <div class='user_avatar block'>
+      <a href="/user/snoopy"><img src="http://gravatar.qiniudn.com/avatar/ba5cfa8ed415cdd50b556a9482c696e9?s=48" title="snoopy" /></a>
+    </div>
+    <div class='user_info'>
+      <span class='reply_author'>
+        <a class='dark' href="/user/snoopy">{{say.user}}
+        </a>
+      </span>
+      <span class='col_fade'>
+        <a href="#519e1cea63e9f8a542fd1418">5-23 21:43</a>
+      </span>
+    </div>
+    <div class='user_action'>
+      <span class='col_fade'>#1</span>
+      
+      <span>
+        
+        <!---->
+      </span>
+    </div>
+  </div>
+<div class='reply_content'>
+  <div class="markdown-text"><p>{{ say.content | safe }}</p>
+</div>
+  </div>
+  <div class='clearfix'>
+    <div class='reply2_area'>
+      
+      
+    </div>
+  </div>
+</div>
+{% endfor %}
+<div class="panel">
+    <div class="header">
+      <span class="col_fade">添加回复</span>
+    </div>
+    <div class="inner reply">
+	<form method="post" action="" >
+                                                        {% csrf_token %}
+                                                        <table>
+							{{form.media}}
+							{{form.as_table}}
+                                                        
+                                                        </table>
+                                                        <input type="submit" value="评论" />
+                                                        </form>
+
+    </div>
+  </div>
+{%endif%}
+
+{% if not name %}
+    <!-- wrapper -->
+    <div id='wrapper'>
+      <div id='main'>
+        <div id='sidebar'>
+  <div class='panel'>
+    <div class='header'>
+      <span class='col_fade'>作者</span>
+    </div>
+    <div class='inner'>
+      <div class='user_card'>
+	<div>
+		<a  class='user_avatar'  href="/user/nswbmw">
+			<img src="/" title="nswbmw" />
+		</a>
+		<span class='user_name'><a class='dark' href="/user/nswbmw">游客</a></span>
+
+		
+
+		<div class='board clearfix'>
+			<div class='floor'>
+				<a href='/user/nswbmw/tags/'><span class='big'>0</span> 标签收藏</a>
+				<div class='space'></div>
+				<a href='/user/nswbmw/collections'><span class='big'>0</span> 话题收藏</a>
+			</div>
+			<div class='floor'>
+				<a href='/user/nswbmw/following'><span class='big'>0</span> 关注</a>
+				<div class='space'></div>
+				<a href='/user/nswbmw/follower'><span class='big'>0</span> 粉丝</a>
+				<div class='space'></div>
+				<span class='big'>0</span> 积分
+			</div>
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+    </div>
+  </div>
+  <div class='panel'>
+    <div class='header'>
+      <span class='col_fade'>作者相关话题</span>
+    </div>
+    <div class='inner'>
+      
+      <ul class='unstyled'>
+{% for n in article %}
+      <li>
+	<div><a class='dark' href="/" title="">{{n.content}}</a></div>
+      </li>
+{% endfor %}
+      </ul>
+      
+    </div>
+  </div>
+
+  <div class='panel'>
+    <div class='header'>
+      <span class='col_fade'>站内推荐</span>
+    </div>
+    <div class='inner'>
+      
+      <ul class='unstyled'>
+      <li>
+	<div><a class='dark' href="http://uliweb.cpython.org" title="/">Python Django官方网站</a></div>
+</li>
+<li>
+	<div><a class='dark' href="http://uliweb.cpython.org" title="/">Python 基础学习资料</a></div>
+</li>
+<li>
+	<div><a class='dark' href="http://uliweb.cpython.org" title="/">Python 最全学习文档</a></div>
+</li>
+      </ul>
+      
+    </div>
+  </div>
+</div>
+<div id='content'>
+  <div class='panel'>
+    <div class='header'>
+      <ul class='breadcrumb'>
+        <li><a href='/'>主页</a><span class='divider'></span></li>
+        <li class='active'>话题详情</li>
+      </ul>
+    </div>
+    <div class='inner topic'>
+      <h3>
+      
+        <span class='put_top'>Python</span>
+      
+       {{articles.title}}
+      </h3>
+      <hr>
+      <div class='topic_content'>
+        <div class="markdown-text">
+{{ articles.content }}
+</div>
+      </div>
+      <hr>
+      <div class="tags">
+        
+        <span class='col_fade'>标签：无</span>  
+        
+      </div>
+      <div class="changes">
+        <span class='col_fade'>
+          <a class='dark' href="/">{{articles.user}}</a> 在 5-23 19:47 发布
+        </span>
+        
+        <span class='col_fade'>
+          <a class='dark' href="/">...</a>
+        </span>
+        
+      </div>
+      <div class="action">
+        <a class='dark' id='share_weibo_btn'
+          href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=3020045345',u=z||d.location,p=['&url=',e(u),'&title=',e(t||d.title),'&source=',e(r),'&sourceUrl=',e(l),'&content=',c||'gb2312','&pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','','分享来自CNode的话题：【一起学node.js】再再版啦~','',''));"
+          >分享到 weibo</a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  
+ {% for say in says %} 
+  <div class='panel'>
+    <div class='header'>
+      <span class='col_fade'>{{say.id}} 回复</span>
+    </div>
+    <div class='cell reply_area reply_item' id="reply1" reply_id="519e1cea63e9f8a542fd1418">
+  <a id="519e1cea63e9f8a542fd1418"></a>
+  <div class='author_content'>
+    <div class='user_avatar block'>
+      <a href="/user/snoopy"><img src="http://gravatar.qiniudn.com/avatar/ba5cfa8ed415cdd50b556a9482c696e9?s=48" title="snoopy" /></a>
+    </div>
+    <div class='user_info'>
+      <span class='reply_author'>
+        <a class='dark' href="/user/snoopy">{{say.user}}
+        </a>
+      </span>
+      <span class='col_fade'>
+        <a href="#519e1cea63e9f8a542fd1418">5-23 21:43</a>
+      </span>
+    </div>
+    <div class='user_action'>
+      <span class='col_fade'>#1</span>
+      
+      <span>
+        
+        <!---->
+      </span>
+    </div>
+  </div>
+<div class='reply_content'>
+  <div class="markdown-text"><p>{{ say.content }}</p>
+</div>
+  </div>
+  <div class='clearfix'>
+    <div class='reply2_area'>
+      
+      
+    </div>
+  </div>
+</div>
+{% endfor %}
+<div class="panel">
+    <div class="header">
+      <span class="col_fade">添加回复</span>
+    </div>
+    <div class="inner reply">
+	<form method="post" action="" >
+                                                        {% csrf_token %}
+                                                        <table>
+                                                        {{form.as_table}}
+                                                        </table>
+                                                        <input type="submit" value="评论" />
+                                                        </form>
+
+    </div>
+  </div>
+{%endif%}
+  

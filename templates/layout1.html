@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <!-- meta -->
+    <meta charset="utf-8" />
+    <meta name='description' content='<%= config.description %>'>
+    <%
+    var headers = config.site_headers || [];
+    for (var i = 0, l = headers.length; i < l; i++) {
+    %>
+    <%- headers[i] %>
+    <% } %>
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="/rss" />
+    <!-- style -->
+    <%- Loader('/public/stylesheets/index.min.css')
+      .css('/public/libs/bootstrap/css/bootstrap.css')
+      .css('/public/stylesheets/common.css')
+      .css('/public/stylesheets/style.css')
+      .css('/public/libs/code-prettify/prettify.css')
+      .done(assets, config.site_static_host, config.mini_assets)
+    %>
+    <% if (locals.extra_style) { %>
+    <style type="text/css">
+      <%- locals.extra_style %>
+    </style>
+    <% } %>
+    <%- Loader('/public/index.min.js')
+      .js('/public/libs/code-prettify/prettify.js')
+      .js('/public/libs/jquery/jquery.js')
+      .js('/public/libs/bootstrap/js/bootstrap.js')
+      .js('/public/javascripts/main.js')
+      .done(assets, config.site_static_host, config.mini_assets)
+    %>
+    <% if (config.site_enable_search_preview) { %>
+    <script>
+      var __google_search_domain = '<%= config.site_google_search_domain || "" %>';
+    </script>
+    <script src='/public/javascripts/google_search_preview.js'></script>
+    <% } %>
+    <% if (locals.topic) { %>
+    <title><%= topic.title %> - <%= config.name %></title>
+    <% } else { %>
+    <title><%= config.description %></title>
+    <% } %>
+  </head>
+  <body>
+    <!-- navbar -->
+    <div class='navbar'>
+      <div class='navbar-inner'>
+        <div class='container'>
+          <a class='brand' href='/'><%- config.site_logo || config.name %></a>
+          <form id='search_form' class='navbar-search' action="/">
+            <input type='text' id='q' name='q' class='search-query span3' value='<%= locals.keyword || '' %>'/>
+          </form>
+          <ul class='nav pull-right'>
+            <li><a href='/'>首页</a></li>
+            <%
+            var site_navs = config.site_navs || [];
+            for (var i = 0, l = site_navs.length; i < l; i++) {
+              var nav = site_navs[i];
+            %>
+            <li><a href="<%- nav[0] %>" target="<%- nav[2] %>"><%- nav[1] %></a></li>
+            <% } %>
+            <% if (locals.current_user) { %>
+            <li>
+              <a href="/user/<%= current_user.name %>" title="查看我的主页"> Me </a>
+            </li>
+            <li><a href='/setting'>设置</a></li>
+            <li>
+              <a href='/signout'>退出</a>
+            </li>
+            <% } else { %>
+            <li><a href='/signup'>注册</a></li>
+            <li><a href='/signin'>登录</a></li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- wrapper -->
+    <div id='wrapper'>
+      <div id='main'>
+        <%- body %>
+      </div>
+    </div>
+    <div id='backtotop'>回到顶部</div>
+    <div id='footer'>
+      <div id='footer_main'>
+        <div class="links">
+          <a class='dark' href='/about'><strong>关于</strong></a>
+          |
+          <a class='dark' href='/faq'><strong>FAQ</strong></a>
+          |
+          <a class='dark' href='https://github.com/cnodejs/nodeclub/' target="_blank"><strong>Github</strong></a>
+          |
+          <a class='dark' href='/rss' target="_blank"><strong>RSS</strong></a>
+        </div>
+        <div class='col_fade'>
+          &copy; 2012 - 2013 <br>本社区为开源系统，版本: <%= config.version %> ，欢迎贡献代码<br>
+          由<a href='http://cnodejs.net' target='_blank'> NAE </a>为 <%= config.name %> 提供动力
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
