@@ -4,7 +4,8 @@
     <!-- meta -->
     <meta charset="utf-8" />
     <meta name='description' content='Python Django专业中文社区'>
-    
+    {% load pagination_tags %}
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="EDP@TaoBao" />
     
@@ -346,12 +347,13 @@
       </div>
       
       <div id="topic_list">
+{% autopaginate articles 10 %}
 {% for article in articles %}
 <div class="cell">
   <div class='user_avatar block'>
     
       <a href="/">
-        <img src="http:/static/{{article.image}}" width="50" height="50"/>
+        <img src="/static/{{article.image}}" width="50" height="50"/>
       </a>
     
     
@@ -379,51 +381,8 @@
   
 </div>
   {% endfor %}
+ {% paginate %} 
   
-  
-
-<div class='pagination' current_page='1'>
-	<ul>
-		
-		
-			<li class='disabled'><a>«</a></li>
-		
-
-		 
-
-		
-
-		
-			
-				<li class='disabled'><a>1</a></li>
-			
-		
-			
-				<li><a href='/?page=2'>2</a></li>
-			
-		
-			
-				<li><a href='/?page=3'>3</a></li>
-			
-		
-			
-				<li><a href='/?page=4'>4</a></li>
-			
-		
-			
-				<li><a href='/?page=5'>5</a></li>
-			
-		
-
-		
-			<li><a>...</a></li>
-		
-
-		
-			<li><a href='/?page=129'>»</a></li>
-		
-	</ul>
-</div>
 <script>
 	$(document).ready(function () {
 		var $nav = $('.pagination');
@@ -759,12 +718,13 @@
       </div>
       
       <div id="topic_list">
+{% autopaginate articles 10 %}
 {% for article in articles %}
 <div class="cell">
   <div class='user_avatar block'>
     
       <a href="/">
-        <img src="http:/static/{{article.image}}" width="50" height="50"/>
+        <img src="/static/{{article.image}}" width="50" height="50"/>
       </a>
     
     
@@ -791,51 +751,8 @@
   
 </div>
   {% endfor %}
+  {% paginate %}
   
-  
-
-<div class='pagination' current_page='1'>
-	<ul>
-		
-		
-			<li class='disabled'><a>«</a></li>
-		
-
-		 
-
-		
-
-		
-			
-				<li class='disabled'><a>1</a></li>
-			
-		
-			
-				<li><a href='/?page=2'>2</a></li>
-			
-		
-			
-				<li><a href='/?page=3'>3</a></li>
-			
-		
-			
-				<li><a href='/?page=4'>4</a></li>
-			
-		
-			
-				<li><a href='/?page=5'>5</a></li>
-			
-		
-
-		
-			<li><a>...</a></li>
-		
-
-		
-			<li><a href='/?page=129'>»</a></li>
-		
-	</ul>
-</div>
 <script>
 	$(document).ready(function () {
 		var $nav = $('.pagination');

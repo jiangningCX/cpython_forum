@@ -123,8 +123,11 @@ def delete_list(request,offset):
 		except ValueError:
 			raise Http404()
 		m = Article.objects.get(id=offset)
-		m.delete()
-	return HttpResponseRedirect("/")
+		if request.user.id == m.id:
+			m.delete()
+			return HttpResponseRedirect("/")
+		else:
+			return HttpResponse("用户权限异常！！")
 
 def update(request,offset):
 	if request.user.is_authenticated():
@@ -142,7 +145,8 @@ def update(request,offset):
 
 		if request.method == "POST":
 			u = Article.objects.get(id = offset)
-			if request.user.id == u.id:
+			print u
+			if request.user.id == u.username_id:
 				u.title = request.POST['title']
 				u.content = request.POST['content']
 				u.save()
